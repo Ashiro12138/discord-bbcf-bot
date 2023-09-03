@@ -2,6 +2,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
+const { initializeApp, cert } = require('firebase-admin/app');
+
+const serviceAccount = require('./serviceAccountKey.json');
+
+initializeApp({
+  credential: cert(serviceAccount)
+});
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
