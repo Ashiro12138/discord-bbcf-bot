@@ -23,8 +23,9 @@ module.exports = {
         const steamId = await getSteamId(interaction.user.id);
         if (!steamId.exists) {
             await interaction.reply(
-                `Steam ID not found for ${interaction.user.username}. Type \`/steamid\` and enter your full Steam profile URL, e.g. \`/steamid http://steamcommunity.com/id/Ashiro12138/\`\nhttps://cdn.discordapp.com/attachments/551256898331213824/966639322570817587/steam_url_instructions.jpg`,
+                `Steam ID not found for ${interaction.user.username}. Type \`/steamid\` and enter your full Steam profile URL, e.g. \`/steamid https://steamcommunity.com/id/Ashiro12138/\``,
             );
+	    await interaction.followUp('https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/steam_url_instructions.jpg');
             return;
         }
         const link = await getJoinLink(steamId.data().steam_id);
