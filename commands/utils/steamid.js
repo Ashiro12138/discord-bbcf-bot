@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { getFirestore } = require('firebase-admin/firestore');
 
 const getSteamIdFromProfileLink = (steam_profile_link) => {
-    return steam_profile_link.match(/https:\/\/steamcommunity\.com\/id\/(.*)\//);
+    return steam_profile_link.match(/https:\/\/steamcommunity\.com\/id\/([^\/]+)/);
 };
 
 const setSteamId = async (discord_user_id, steam_id) => {
