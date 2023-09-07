@@ -3,8 +3,6 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const { getFirestore } = require('firebase-admin/firestore');
 
-const db = getFirestore();
-
 const getJoinLink = async (steam_id) => {
     const { data } = await axios.get(`https://steamcommunity.com/id/${steam_id}/`);
     const $ = cheerio.load(data);
@@ -13,6 +11,7 @@ const getJoinLink = async (steam_id) => {
 };
 
 const getSteamId = async (discord_user_id) => {
+    const db = getFirestore();
     return db.collection('discord_user_id').doc(discord_user_id).get();
 };
 
