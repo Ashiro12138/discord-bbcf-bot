@@ -11,12 +11,10 @@ Further updates coming to improve things such as
 {
  "token": "your-token-goes-here",
  "clientId": "your-application-id-goes-here",
- "guildId": "your-server-id-goes-here"
 }
 ```
 - token: Your bot's token (Discord Developer Portal > "Bot" > token)
 - clientId: Your application's client id (Discord Developer Portal > "General Information" > application id)
-- guildId: Your development server's id (Enable developer > Right-click the server title > "Copy ID")  
 **Put `config.json` at project root**
 ### serviceAccountKey.json
 1. In the Google Cloud console, go to the Service accounts page.
