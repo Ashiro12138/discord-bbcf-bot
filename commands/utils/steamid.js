@@ -1,9 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { getFirestore } = require('firebase-admin/firestore');
 const logger = require('../../logger');
+const { steam_api_key } = require('../../config.json');
 
 const getSteamIdFromProfileLink = (steam_profile_link) => {
-	return steam_profile_link.match(/https:\/\/steamcommunity\.com\/id\/([^\/]+)/);
+	return steam_profile_link.match(
+		/https:\/\/steamcommunity\.com\/(id\/([^\/\n]+)|profiles\/([0-9]{17}))/,
+	);
 };
 
 const setSteamId = async (discord_user_id, steam_id) => {
@@ -40,7 +43,28 @@ module.exports = {
 			});
 			return;
 		}
-		const [, steam_id] = result;
+		const [, , group2, group3] = result;
+		let steam_id;
+		if (group3) {
+			// Matches `.../profiles/...`
+			steam_id = group3;
+		} else {
+			// Matches `.../id/...`
+			steam_id = await axios.get(
+				`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${steam_api_key}&vanityurl=${group2}`,
+			);
+			if (!steam_id) {
+				logger.info({
+					command: '/steamid',
+					userId: interaction.user.id,
+					username: interaction.user.username,
+					guildId: interaction.guildId,
+					channelId: interaction.channelId,
+					saveSuccess: false,
+					attemptedLink: steam_profile_link,
+				});
+			}
+		}
 		setSteamId(interaction.user.id, steam_id);
 		await interaction.reply(`Saved ${steam_id}'s Steam ID.`);
 		logger.info({
