@@ -17,7 +17,7 @@ const getSteamId = async (discord_user_id) => {
 };
 
 module.exports = {
-	cooldown: 5,
+	cooldown: 10,
 	data: new SlashCommandBuilder()
 		.setName('lobby')
 		.setDescription('Searches for join game link and replies'),
