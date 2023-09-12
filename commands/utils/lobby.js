@@ -16,6 +16,7 @@ const getSteamId = async (discord_user_id) => {
 };
 
 module.exports = {
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('lobby')
         .setDescription('Searches for join game link and replies'),
@@ -25,7 +26,9 @@ module.exports = {
             await interaction.reply(
                 `Steam ID not found for ${interaction.user.username}. Type \`/steamid\` and enter your full Steam profile URL, e.g. \`/steamid https://steamcommunity.com/id/Ashiro12138/\``,
             );
-	    await interaction.followUp('https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/steam_url_instructions.jpg');
+            await interaction.followUp(
+                'https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/steam_url_instructions.jpg',
+            );
             return;
         }
         const link = await getJoinLink(steamId.data().steam_id);

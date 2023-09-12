@@ -16,7 +16,7 @@
         "redis": "^4.6.8"
     },
     "devDependencies": {
-        "eslint": "^8.48.0",
-        "prettier": "^3.0.3"
+        "eslint": "^8.7.0",
+        "prettier": "^2.5.1"
     }
 }

@@ -13,6 +13,7 @@ const setSteamId = async (discord_user_id, steam_id) => {
 };
 
 module.exports = {
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('steamid')
         .setDescription('Sets your steam id for game lobby link searching')
