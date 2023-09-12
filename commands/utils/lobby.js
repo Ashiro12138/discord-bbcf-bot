@@ -26,7 +26,7 @@ module.exports = {
             await interaction.reply(
                 `Steam ID not found for ${interaction.user.username}. Type \`/steamid\` and enter your full Steam profile URL, e.g. \`/steamid https://steamcommunity.com/id/Ashiro12138/\``,
             );
-            await interaction.followUp(
+            await interaction.channel.send(
                 'https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/steam_url_instructions.jpg',
             );
             return;
