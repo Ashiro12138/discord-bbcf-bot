@@ -41,9 +41,10 @@ module.exports = {
 			);
 		}
 
-		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo } = response['players'][0];
+		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo } =
+			response['players'][0];
 
-        console.debug({ gameid, lobbysteamid, communityvisibilitystate, gameextrainfo })
+		console.debug({ gameid, lobbysteamid, communityvisibilitystate, gameextrainfo });
 
 		if (steam_id && gameid && lobbysteamid) {
 			const link = `steam://joinlobby/${gameid}/${lobbysteamid}/${steam_id}`;

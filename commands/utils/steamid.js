@@ -13,7 +13,7 @@ const setSteamId = async (discord_user_id, steam_id, discord_username) => {
 	const db = getFirestore();
 	return db.collection('discord_user_id').doc(discord_user_id).set({
 		steam_id,
-        discord_username
+		discord_username,
 	});
 };
 
