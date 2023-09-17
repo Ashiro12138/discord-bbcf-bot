@@ -64,6 +64,9 @@ module.exports = {
 				`Lobby not found for ${interaction.user.username}: Steam thinks you're offline. Make sure you're connected to Steam, and not set to Appear Offline on your friends list.`,
 			);
 		} else {
+			await interaction.reply(
+				`Lobby not found for ${message.author.name}: Your profile is not public, so the bot can't see if you're in a lobby.`,
+			);
 		}
 
 		logger.info({
