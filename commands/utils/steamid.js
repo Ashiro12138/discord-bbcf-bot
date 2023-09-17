@@ -52,10 +52,12 @@ module.exports = {
 			steam_id = group3;
 		} else {
 			// Matches `.../id/...`
-			const { data: { response } } = await axios.get(
+			const {
+				data: { response },
+			} = await axios.get(
 				`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${steamApiKey}&vanityurl=${group2}`,
-			)
-            steam_id = response.steamid;
+			);
+			steam_id = response.steamid;
 			if (!steam_id) {
 				logger.info({
 					command: '/steamid',
@@ -66,7 +68,7 @@ module.exports = {
 					saveSuccess: false,
 					attemptedLink: steam_profile_link,
 				});
-                return
+				return;
 			}
 		}
 		setSteamId(interaction.user.id, steam_id, interaction.user.username);
