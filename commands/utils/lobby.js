@@ -44,11 +44,6 @@ module.exports = {
 		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo } =
 			response['players'][0];
 
-<<<<<<< Updated upstream
-		console.debug({ gameid, lobbysteamid, communityvisibilitystate, gameextrainfo });
-
-=======
->>>>>>> Stashed changes
 		if (steam_id && gameid && lobbysteamid) {
 			const link = `steam://joinlobby/${gameid}/${lobbysteamid}/${steam_id}`;
 			const gameName = gameextrainfo ? `${gameextrainfo}'s ` : '';
