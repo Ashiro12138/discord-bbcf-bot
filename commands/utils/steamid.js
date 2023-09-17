@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { getFirestore } = require('firebase-admin/firestore');
 const logger = require('../../logger');
-const { steam_api_key } = require('../../config.json');
+const { steamApiKey } = require('../../config.json');
+const axios = require('axios');
 
 const getSteamIdFromProfileLink = (steam_profile_link) => {
 	return steam_profile_link.match(
@@ -51,9 +52,10 @@ module.exports = {
 			steam_id = group3;
 		} else {
 			// Matches `.../id/...`
-			steam_id = await axios.get(
-				`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${steam_api_key}&vanityurl=${group2}`,
-			);
+			const { data: { response } } = await axios.get(
+				`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${steamApiKey}&vanityurl=${group2}`,
+			)
+            steam_id = response.steamid;
 			if (!steam_id) {
 				logger.info({
 					command: '/steamid',
@@ -64,6 +66,7 @@ module.exports = {
 					saveSuccess: false,
 					attemptedLink: steam_profile_link,
 				});
+                return
 			}
 		}
 		setSteamId(interaction.user.id, steam_id, interaction.user.username);
