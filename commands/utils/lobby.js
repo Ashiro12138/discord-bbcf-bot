@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
 const { getFirestore } = require('firebase-admin/firestore');
 const logger = require('../../logger');
-const { steam_api_key } = require('../../config.json');
+const { steamApiKey } = require('../../config.json');
 
 const getSteamId = async (discord_user_id) => {
 	const db = getFirestore();
@@ -18,7 +18,7 @@ module.exports = {
 		const steamId = await getSteamId(interaction.user.id);
 		if (!steamId.exists) {
 			await interaction.reply(
-				`Steam ID not found for ${interaction.user.username}. Type \`/steamid\` and enter your full Steam profile URL, e.g. \`/steamid https://steamcommunity.com/id/Ashiro12138/\` or \`https://steamcommunity.com/profiles/76561198131623683/\``,
+				`Steam ID not found for ${interaction.user.username}. Type \`/steamid\` and enter your full Steam profile URL, e.g. \`/steamid https://steamcommunity.com/id/Ashiro12138/\` or \`/steamid https://steamcommunity.com/profiles/76561198131623683/\``,
 			);
 			await interaction.channel.send(
 				'https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/steam_url_instructions.jpg',
@@ -32,7 +32,7 @@ module.exports = {
 		const {
 			data: { response },
 		} = await axios.get(
-			`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${steam_api_key}&steamids=${steam_id}`,
+			`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${steamApiKey}&steamids=${steam_id}`,
 		);
 
 		if (!response) {
@@ -41,7 +41,9 @@ module.exports = {
 			);
 		}
 
-		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo } = response;
+		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo } = response['players'][0];
+
+        console.debug({ gameid, lobbysteamid, communityvisibilitystate, gameextrainfo })
 
 		if (steam_id && gameid && lobbysteamid) {
 			const link = `steam://joinlobby/${gameid}/${lobbysteamid}/${steam_id}`;
@@ -65,7 +67,7 @@ module.exports = {
 			);
 		} else {
 			await interaction.reply(
-				`Lobby not found for ${message.author.name}: Your profile is not public, so the bot can't see if you're in a lobby.`,
+				`Lobby not found for ${interaction.user.username}: Your profile is not public, so the bot can't see if you're in a lobby.`,
 			);
 		}
 
