@@ -14,13 +14,15 @@ Further updates coming to improve things such as
 
 ```json
 {
-    "token": "your-token-goes-here",
-    "clientId": "your-application-id-goes-here"
+	"token": "your-token-goes-here",
+	"clientId": "your-application-id-goes-here",
+	"steamApiKey": "your-steam-api-key-goes-here"
 }
 ```
 
 -   token: Your bot's token (Discord Developer Portal > "Bot" > token)
 -   clientId: Your application's client id (Discord Developer Portal > "General Information" > application id)
+-   steamApiKey: Get steam api key from here [https://steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey)
     **Put `config.json` at project root**
 
 ### serviceAccountKey.json
