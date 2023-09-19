@@ -14,9 +14,9 @@ Further updates coming to improve things such as
 
 ```json
 {
-	"token": "your-token-goes-here",
-	"clientId": "your-application-id-goes-here",
-	"steamApiKey": "your-steam-api-key-goes-here"
+    "token": "your-token-goes-here",
+    "clientId": "your-application-id-goes-here",
+    "steamApiKey": "your-steam-api-key-goes-here"
 }
 ```
 
