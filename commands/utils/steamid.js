@@ -6,7 +6,7 @@ const axios = require('axios');
 
 const getSteamIdFromProfileLink = (steam_profile_link) => {
 	return steam_profile_link.match(
-		/https:\/\/steamcommunity\.com\/(id\/([^\/\n]+)|profiles\/([0-9]{17}))/,
+		/https:\/\/steamcommunity\.com\/(id\/([^/\n]+)|profiles\/([0-9]{17}))/,
 	);
 };
 
