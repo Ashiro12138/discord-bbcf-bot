@@ -41,8 +41,8 @@ module.exports = {
 			);
 		}
 
-		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo } =
-			response['players'][0];
+		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo, profilestate } =
+            response['players'][0];
 
 		if (steam_id && gameid && lobbysteamid) {
 			const link = `steam://joinlobby/${gameid}/${lobbysteamid}/${steam_id}`;
@@ -60,13 +60,35 @@ module.exports = {
 			return;
 		}
 
-		if (communityvisibilitystate === 3) {
+		const {
+			data: { response: ownedGameContents },
+		} = await axios.get(
+			`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${steamApiKey}&steamid=${steam_id}&include_played_free_games=1`,
+		);
+
+		if (!ownedGameContents.game_count) {
+			await interaction.reply(
+				`SteamAPI: GetPlayerSummaries() failed for ${interaction.user.username}. Is the Steam Web API down?`,
+			);
+		} else if (communityvisibilitystate !== 3) {
+			await interaction.reply(
+				`Lobby not found for ${interaction.user.username}: Your profile's Game Details are not public, so the bot can't see if you're in a lobby.`,
+			);
+			await interaction.channel.send(
+				'https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/public_profile_instructions.jpg',
+			);
+		} else if (profilestate === 0) {
 			await interaction.reply(
 				`Lobby not found for ${interaction.user.username}: Steam thinks you're offline. Make sure you're connected to Steam, and not set to Appear Offline on your friends list.`,
 			);
-		} else {
+		} else if (!gameid) {
 			await interaction.reply(
-				`Lobby not found for ${interaction.user.username}: Your profile is not public, so the bot can't see if you're in a lobby.`,
+				`Lobby not found for ${interaction.user.username}: Steam thinks you're online but not playing a game.`,
+			);
+		} else {
+			const gameName = gameextrainfo ?? 'a game';
+			await interaction.reply(
+				`Lobby not found for ${interaction.user.username}: Steam thinks you're playing ${gameName} but not in a lobby.`,
 			);
 		}
 
