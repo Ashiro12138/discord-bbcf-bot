@@ -68,7 +68,7 @@ module.exports = {
 
 		if (!ownedGameContents.game_count) {
 			await interaction.reply(
-				`SteamAPI: GetPlayerSummaries() failed for ${interaction.user.username}. Is the Steam Web API down?`,
+				`SteamAPI: ownedGameContents() failed for ${interaction.user.username}. Is the Steam Web API down?`,
 			);
 		} else if (communityvisibilitystate !== 3) {
 			await interaction.reply(
