@@ -41,8 +41,8 @@ module.exports = {
 			);
 		}
 
-		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo, profilestate } =
-            response['players'][0];
+		const { gameid, lobbysteamid, communityvisibilitystate, gameextrainfo, personastate } =
+			response['players'][0];
 
 		if (steam_id && gameid && lobbysteamid) {
 			const link = `steam://joinlobby/${gameid}/${lobbysteamid}/${steam_id}`;
@@ -77,7 +77,7 @@ module.exports = {
 			await interaction.channel.send(
 				'https://raw.githubusercontent.com/ctmatthews/sglobbylink-discord.py/master/public_profile_instructions.jpg',
 			);
-		} else if (profilestate === 0) {
+		} else if (personastate === 0) {
 			await interaction.reply(
 				`Lobby not found for ${interaction.user.username}: Steam thinks you're offline. Make sure you're connected to Steam, and not set to Appear Offline on your friends list.`,
 			);
