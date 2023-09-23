@@ -1,12 +1,11 @@
-# discord-bbcf-bot (UNDER CONSTRUCTION)
+# discord-steam-lobby-bot
 
 This currently works by web scrapping the steam user page and checking for a join lobby link.  
 User discord id to steam id is stored in self hosted firestore  
-Technically I think this works beyond BBCF games  
 Further updates coming to improve things such as
 
--   Use steam api link instead of webscrapping
--   Add rate limit for requesting
+-   Use local json database instead of remote NoSQL database
+-   Create hyperlink for join lobby links
 
 ## Config setup
 
